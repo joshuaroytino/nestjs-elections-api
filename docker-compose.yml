@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  dev:
+    container_name: nestjs-elections-api_dev
+    build:
+      context: .
+      target: development
+      dockerfile: .docker/Dockerfile
+    command: npm run start:dev
+    ports:
+      - 3000:3000
+      - 9229:9229
+    volumes:
+      - .:/usr/src/app
+      - dev_node_modules:/usr/src/app/node_modules
+    networks:
+      - default
+    restart: unless-stopped
+
+  prod:
+    container_name: nestjs-elections-api_prod
+    build:
+      context: .
+      target: production
+      dockerfile: .docker/Dockerfile
+    command: npm run start:prod
+    ports:
+      - 3000:3000
+      - 9229:9229
+    volumes:
+      - .:/usr/src/app
+      - prod_node_modules:/usr/src/app/node_modules
+    networks:
+      - default
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  dev_node_modules:
+  prod_node_modules:
