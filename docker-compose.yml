@@ -15,7 +15,7 @@ services:
       - 9229:9229
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - dev_node_module:/usr/src/app/node_modules
     networks:
       - default
     restart: unless-stopped
@@ -32,7 +32,7 @@ services:
       - 9229:9229
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
+      - prod_node_module:/usr/src/app/node_modules
     networks:
       - default
     restart: unless-stopped
@@ -40,3 +40,7 @@ services:
 networks:
   default:
     driver: bridge
+
+volumes:
+  dev_node_module:
+  prod_node_module:
